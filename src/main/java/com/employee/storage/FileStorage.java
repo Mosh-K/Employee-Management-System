@@ -1,14 +1,23 @@
 package com.employee.storage;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import com.employee.exceptions.CustomExceptions.DuplicationException;
+import com.employee.exceptions.CustomExceptions.NotFoundException;
 import com.employee.model.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.*;
-import java.nio.file.*;
-
 public class FileStorage {
+  private FileStorage() {
+    // private constructor to prevent instantiation
+  }
+
   // DIRECTORY_NAME shouldn't be final or private because it's modified in the test
   public static String DIRECTORY_NAME = "employees";
+  private static final String EMPLOYEE_NOT_FOUND_ERROR = "No employee with this ID exists";
   private static final String FILE_EXTENSION = ".json";
   private static final ObjectMapper mapper = new ObjectMapper();
 
@@ -17,9 +26,9 @@ public class FileStorage {
     Path path = getFilePath(employee.getId());
     // Check if the employee already exists
     if (isNew && Files.exists(path)) {
-      throw new IllegalArgumentException("DuplicationError: An employee with this ID already exists");
+      throw new DuplicationException("An employee with this ID already exists");
     } else if (!isNew && !Files.exists(path)) {
-      throw new IllegalArgumentException("NotFoundError: No employee with this ID exists");
+      throw new NotFoundException(EMPLOYEE_NOT_FOUND_ERROR);
     }
     // Write the employee data to the file
     Files.writeString(path, mapper.writeValueAsString(employee));
@@ -30,7 +39,7 @@ public class FileStorage {
     Path path = getFilePath(id);
     // Check if the file exists
     if (!Files.exists(path)) {
-      throw new IllegalArgumentException("NotFoundError: No employee with this ID exists");
+      throw new NotFoundException(EMPLOYEE_NOT_FOUND_ERROR);
     }
     // Read the employee's data from the file
     return mapper.readValue(Files.readString(path), Employee.class);
@@ -59,7 +68,7 @@ public class FileStorage {
     Path path = getFilePath(id);
     // Check if the file exists
     if (!Files.exists(path)) {
-      throw new IllegalArgumentException("NotFoundError: No employee with this ID exists");
+      throw new NotFoundException(EMPLOYEE_NOT_FOUND_ERROR);
     }
     // Delete the file corresponding to the employee ID
     Files.delete(path);

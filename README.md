@@ -25,35 +25,49 @@ This is an Employee Management System built with Java, Spring Boot, and Maven. I
 ### Installation
 
 1. Clone the repository
+
 ```bash
 git clone https://github.com/Mosh-K/employee-management-system.git
 ```
+
 1. Navigate to the project directory
+
 ```bash
 cd employee-management-system
 ```
+
 1. Build the project using Maven
+
 ```bash
 mvn clean install
 ```
+
 1. Run the spring boot application
+
 ```bash
 mvn spring-boot:run
 ```
+
 1. Navigate to the React.js user interface directory
+
 ```bash
 cd frontend
 ```
+
 1. Install the required dependencies
+
 ```bash
 npm install
 ```
+
 1. Run the React.js application
+
 ```bash
 npm start
 ```
 
 ## Usage
+
 The application provides the following endpoints:
 
 - `GET /employees`: Get all employees
@@ -65,7 +79,9 @@ The application provides the following endpoints:
 The React.js user interface allows you to interact with the API to perform CRUD operations on employee records.
 
 ## Documentation
+
 For more detailed information, please refer to the HELP.md file.
 
 ## License
+
 MIT

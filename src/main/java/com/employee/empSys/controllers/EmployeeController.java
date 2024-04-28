@@ -1,11 +1,24 @@
 package com.employee.empSys.controllers;
 
+import java.io.IOException;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.employee.exceptions.CustomExceptions.DuplicationException;
+import com.employee.exceptions.CustomExceptions.NotFoundException;
+import com.employee.exceptions.CustomExceptions.ValidationException;
 import com.employee.model.Employee;
 import com.employee.storage.FileStorage;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/employees")
@@ -30,9 +43,11 @@ public class EmployeeController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<String> updateEmployee(@PathVariable String id, @RequestBody Employee employee) throws IOException {
+  public ResponseEntity<String> updateEmployee(@PathVariable String id, @RequestBody Employee employee)
+      throws IOException {
     if (!id.equals(employee.getId())) {
-      return new ResponseEntity<>("Employee ID in the path and in the request body do not match", HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<>("Employee ID in the path and in the request body do not match",
+          HttpStatus.BAD_REQUEST);
     }
     FileStorage.saveEmployee(employee, false);
     return new ResponseEntity<>("Employee updated successfully", HttpStatus.OK);
@@ -44,14 +59,12 @@ public class EmployeeController {
     return new ResponseEntity<>("Employee deleted successfully", HttpStatus.OK);
   }
 
-  @ExceptionHandler(IllegalArgumentException.class)
-  public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
-    if (ex.getMessage().contains("DuplicationError") || ex.getMessage().contains("ValidationError")) {
-      return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-    } else if (ex.getMessage().contains("NotFoundError")) {
-      return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
-    } else {
-      throw new RuntimeException(ex);
+  @ExceptionHandler({ NotFoundException.class, ValidationException.class, DuplicationException.class })
+  public ResponseEntity<String> handleException(RuntimeException ex) {
+    HttpStatus status = HttpStatus.BAD_REQUEST;
+    if (ex instanceof NotFoundException) {
+      status = HttpStatus.NOT_FOUND;
     }
+    return new ResponseEntity<>(ex.getMessage(), status);
   }
 }

@@ -1,5 +1,7 @@
 package com.employee.storage;
 
+import com.employee.exceptions.CustomExceptions.DuplicationException;
+import com.employee.exceptions.CustomExceptions.NotFoundException;
 import com.employee.model.Employee;
 import org.junit.jupiter.api.*;
 
@@ -34,10 +36,10 @@ class FileStorageTest {
     assertEquals(employee1, readEmployee);
 
     // Save a new employee with isNew flag set to false
-    assertThrows(IllegalArgumentException.class, () -> FileStorage.saveEmployee(employee2, false));
+    assertThrows(NotFoundException.class, () -> FileStorage.saveEmployee(employee2, false));
 
     // Save an existing employee with isNew flag set to true
-    assertThrows(IllegalArgumentException.class, () -> FileStorage.saveEmployee(employee1, true));
+    assertThrows(DuplicationException.class, () -> FileStorage.saveEmployee(employee1, true));
 
     // Save an existing employee with isNew flag set to false
     FileStorage.saveEmployee(employee1, false);
@@ -59,9 +61,9 @@ class FileStorageTest {
     // Delete an existing employee
     FileStorage.saveEmployee(employee1, true);
     FileStorage.deleteEmployee(employee1.getId());
-    assertThrows(IllegalArgumentException.class, () -> FileStorage.readEmployee(employee1.getId()));
+    assertThrows(NotFoundException.class, () -> FileStorage.readEmployee(employee1.getId()));
 
     // Delete a non-existing employee
-    assertThrows(IllegalArgumentException.class, () -> FileStorage.deleteEmployee(employee2.getId()));
+    assertThrows(NotFoundException.class, () -> FileStorage.deleteEmployee(employee2.getId()));
   }
 }
