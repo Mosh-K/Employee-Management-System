@@ -7,20 +7,15 @@ This is an Employee Management System built with Java, Spring Boot, and Maven. I
 - CRUD operations for employee records
 - File-based storage for employee records
 - Input validation for data integrity and security
-- Concurrency control mechanisms
-- Custom serialization and deserialization for the Employee class
-- Algorithmic challenges such as sorting employees based on salary
 - Design patterns to improve the structure and maintainability of the codebase
 - HTTP server to expose the functionality via a REST API
-- User interface developed with React.js
 
 ## Getting Started
 
 ### Prerequisites
 
-- Java 11 or higher
+- Java 17 or higher
 - Maven 3.6.3 or higher
-- Node.js and npm (for the React.js user interface)
 
 ### Installation
 
@@ -48,23 +43,22 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-1. Navigate to the React.js user interface directory
+## Testing
+
+The project includes several unit tests to ensure the functionality of the system. The tests are located in the `src/test/java/com/employee` directory.
+
+Here are the test files and their locations:
+
+- `empSys/controllers/EmployeeControllerTest.java`: This file contains tests for the EmployeeController class.
+- `model/EmployeeTest.java`: This file contains tests for the Employee model class.
+- `storage/FileStorageTest.java`: This file contains tests for the FileStorage class.
+
+To run the tests, navigate to the project directory and use the following command:
 
 ```bash
-cd frontend
+mvn test
 ```
 
-1. Install the required dependencies
-
-```bash
-npm install
-```
-
-1. Run the React.js application
-
-```bash
-npm start
-```
 
 ## Usage
 
@@ -75,8 +69,6 @@ The application provides the following endpoints:
 - `POST /employees`: Add a new employee
 - `PUT /employees/{id}`: Update an existing employee
 - `DELETE /employees/{id}`: Delete an employee
-
-The React.js user interface allows you to interact with the API to perform CRUD operations on employee records.
 
 ## Documentation
 
