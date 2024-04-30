@@ -24,7 +24,7 @@ public class Employee {
       @JsonProperty("position") String position, @JsonProperty("salary") double salary) {
     this.id = validateString(id, 5, "ID");
     this.name = validateString(name, 25, "Name");
-    this.position = validateString(position, 10, "Position");
+    this.position = validateString(position, 25, "Position");
     this.salary = validateNumber(salary, 1_000_000, "Salary");
   }
 

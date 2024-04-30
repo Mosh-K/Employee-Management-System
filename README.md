@@ -43,6 +43,10 @@ mvn clean install
 mvn spring-boot:run
 ```
 
+## Initial Data
+
+Upon starting the server, a few employee records will be automatically created for convenience. These records are stored in the `employees` directory and can be viewed immediately via a GET request to the `/employees` endpoint.
+
 ## Testing
 
 The project includes several unit tests to ensure the functionality of the system. The tests are located in the `src/test/java/com/employee` directory.
@@ -59,7 +63,6 @@ To run the tests, navigate to the project directory and use the following comman
 mvn test
 ```
 
-
 ## Usage
 
 The application provides the following endpoints:
@@ -70,10 +73,15 @@ The application provides the following endpoints:
 - `PUT /employees/{id}`: Update an existing employee
 - `DELETE /employees/{id}`: Delete an employee
 
-## Documentation
+### Employee Format
 
-For more detailed information, please refer to the HELP.md file.
+For the `POST /employees` and `PUT /employees/{id}` endpoints, the employee data should be provided in the following format:
 
-## License
-
-MIT
+```json
+{
+  "id": "1",
+  "name": "John Doe",
+  "position": "Engineer",
+  "salary": 50000.0
+}
+```
