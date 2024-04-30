@@ -1,0 +1,38 @@
+[
+  {
+    "id": "A1B2C",
+    "name": "Alice Smith",
+    "position": "Software Developer",
+    "salary": 70000.0
+  },
+  {
+    "id": "G6H7I",
+    "name": "Charlie Brown",
+    "position": "UX Designer",
+    "salary": 75000.0
+  },
+  {
+    "id": "J8K9L",
+    "name": "Emma Watson",
+    "position": "Data Analyst",
+    "salary": 72000.0
+  },
+  {
+    "id": "M1N2O",
+    "name": "Oliver Twist",
+    "position": "Marketing Specialist",
+    "salary": 68000.0
+  },
+  {
+    "id": "P3Q4R",
+    "name": "Nancy Drew",
+    "position": "Product Designer",
+    "salary": 71000.0
+  },
+  {
+    "id": "S5T6U",
+    "name": "Harry Potter",
+    "position": "Software Engineer",
+    "salary": 73000.0
+  }
+]
