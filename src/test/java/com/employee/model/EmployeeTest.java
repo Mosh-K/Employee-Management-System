@@ -36,7 +36,7 @@ class EmployeeTest {
   void testConstructorWithInvalidPosition() {
     assertThrows(ValidationException.class, () -> new Employee("1", "John Doe", null, 100000.0));
     assertThrows(ValidationException.class, () -> new Employee("1", "John Doe", "", 100000.0));
-    assertThrows(ValidationException.class, () -> new Employee("1", "John Doe", "Manager Manager Manager", 100000.0));
+    assertThrows(ValidationException.class, () -> new Employee("1", "John Doe", "Manager Manager Manager Manager Manager", 100000.0));
   }
 
   @Test
